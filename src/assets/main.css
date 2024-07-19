@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.headline {
+  @apply z-10;
+  @apply absolute;
+  @apply top-0;
+  @apply left-0;
+  @apply font-headline;
+  @apply text-white;
+  @apply text-xl;
+  -webkit-text-stroke: 0.6rem #5f5ef9;
+  paint-order: stroke fill;
+}
+
+.headline-shadow {
+  @apply z-0;
+  @apply absolute;
+  @apply top-0;
+  @apply left-0;
+  @apply font-headline;
+  @apply text-purple;
+  @apply text-xl;
+  @apply select-none;
+  -webkit-text-stroke: 0.6rem #5f5ef9;
+  translate: -5px 5px;
+}
+
+.purple-box-shadow {
+  box-shadow: -6px 6px 0px 0px #5f5ef9;
+}
+
+.red-box-shadow {
+  box-shadow: -6px 6px 0px 0px #ff564d;
+}
+
+.black-box-shadow {
+  box-shadow: -6px 6px 0px 0px #1f1f1f;
+}
+
+.no-select {
+  -drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
