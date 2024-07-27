@@ -6,27 +6,36 @@ const loadedImage = ref(false);
 function imgLoad() {
   loadedImage.value = true;
 }
+function generateThemeText(theme, domain) {
+  if(theme) {
+    return `This is ShareThumb's ${theme.type} ${theme.name} theme!`;
+  } else if (domain && domain.name) {
+    return `This is ${domain.name}!`;
+  } else {
+    return `My Website!`;
+  }
+}
 </script>
 <template>
-  <div class="flex flex-col items-center w-full max-w-lg">
+  <div>
+    <div class="flex flex-col items-center w-full max-w-lg">
     <CurrentSocialShareImage v-if="current" class="absolute top-7 z-10" />
     <div class="rounded-lg bg-white drop-shadow-[0_0px_10px_rgba(0,0,0,0.25)] max-w-lg font-social">
       <div class="pt-3 mx-4 mb-2">
         <div class="flex gap-2 mb-2 items-center">
-          <img class="rounded-full size-10 text-[15px] font-semibold" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Social Media Profile Picture"/>
+          <img class="rounded-full size-10 text-[15px] font-semibold" src="https://i.pravatar.cc/40" alt="Social Media Profile Picture"/>
           Fernando
         </div>
         <p class="text-[15px]">
-          The {{theme && theme.name ? theme.name + ' Theme' : 'Bob Loblaw Law Blog'}}
+          {{generateThemeText(theme, domain)}}
         </p>
       </div>
       <span class="cursor-pointer">
         <template v-if="theme">
-          <img :class="`w-full aspect-video ${!loadedImage ? 'hidden' : ''}`" :src="theme && theme.key ? `https://use.sharethumb.io/preview-image/${theme.key}/${domain.submittedUrl}` : ''" @load="imgLoad"/>
-          <img :class="`w-full aspect-video ${loadedImage ? 'hidden' : ''}`" src="../assets/LoadingPreviewFrame.png" alt="Loading Preview" />
+          <img :class="`w-full object-contain aspect-[40/21] ${!loadedImage ? 'hidden' : ''}`" :src="theme && theme.key ? `https://use.sharethumb.io/preview-image/${theme.key}/${domain.submittedUrl}` : ''" @load="imgLoad"/>
+          <img :class="`w-full object-contain aspect-[40/21] ${loadedImage ? 'hidden' : ''}`" src="../assets/LoadingPreviewFrame.png" alt="Loading Preview" />
         </template>
-        <img v-else-if="domain" class="w-full aspect-video" :src="((domain?.image ?? false) && domain?.image.length > 0) ? domain.image : `https://use.sharethumb.io/og-image/${domain?.submittedUrl}`" alt="Your Original og:image" />
-        <img v-else class="w-full aspect-video" src="https://www.bing.com/th?id=OHR.YoungJaguar_EN-US8866928893_tmb.jpg&rf" alt="Your Original og:image" />
+        <img v-else-if="domain && domain.image" class="w-full object-contain aspect-[40/21]" :src="domain.image" alt="Your Original og:image" />
         <div class="bg-[#F0F2F5] border-b border-b-[#CED0D4] px-3 py-2">
           <div class="text-gray text-[13px]">{{domain?.domain ?? 'YOURWEBSITE.CO'}}</div>
           <div class="text-sm font-semibold">{{domain?.name ?? 'Your page title'}}</div>
@@ -47,4 +56,5 @@ function imgLoad() {
       </div>
     </div>
   </div>
+</div>
 </template>
